@@ -18,7 +18,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-
+import {OpenNativeSettings} from "@ionic-native/open-native-settings";
 import { BeaconMonitorProvider } from '../providers/beacon-monitor/beacon-monitor';
 
 
@@ -60,6 +60,7 @@ const firebaseConfig = {
     BackgroundMode,
     Facebook,
     GooglePlus,
+    OpenNativeSettings,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

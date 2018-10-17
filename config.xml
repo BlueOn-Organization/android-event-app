@@ -100,5 +100,7 @@
         <variable name="APP_NAME" value="blueon" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.37.0" />
     </plugin>
+    <plugin name="cordova-open-native-settings" spec="1.5.1" />
     <engine name="android" spec="7.1.1" />
+    <engine name="ios" spec="~4.5.5" />
 </widget>

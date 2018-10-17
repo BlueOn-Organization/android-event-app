@@ -8,6 +8,8 @@ import { AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firest
 import {Observable} from "rxjs";
 import {BackgroundMode} from "@ionic-native/background-mode";
 import {LocalNotifications} from "@ionic-native/local-notifications";
+import { IBeacon } from '@ionic-native/ibeacon';
+import {OpenNativeSettings} from "@ionic-native/open-native-settings";
 
 @Component({
   selector: 'page-home',
@@ -27,7 +29,10 @@ export class HomePage {
     private alertCtrl: AlertController,
     private iab: InAppBrowser,
     private backgroundMode: BackgroundMode,
-    platform: Platform,
+    private ibeacon: IBeacon,
+    private openNativeSettings: OpenNativeSettings,
+    private alert: AlertController,
+    public platform: Platform,
     private localNotifications: LocalNotifications,
   ) {
     if(platform.is('android')){
@@ -43,12 +48,60 @@ export class HomePage {
       this.beaconsBD = [];
       info.forEach(beacon => {
         this.beaconsBD.push(beacon);
-        console.log(beacon)
+        //console.log(beacon)
       })
     })
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
+    this.checkBluetoothEnabled();
+    this.monitoInit();
+  }
+
+
+  checkBluetoothEnabled() {
+    this.ibeacon.isBluetoothEnabled().then(enabled => {
+      if (!enabled) {
+        if(this.platform.is('android')){
+          this.alertAndroid();
+        }else{
+          this.alertIos();
+        }
+      }
+    });
+  }
+
+  alertAndroid(){
+    this.alert.create({
+      enableBackdropDismiss: false,
+      subTitle: 'El Bluetooth está desactivado, debes activarlo para poder continuar.',
+      buttons: [{
+        text: 'Activar',
+        role: 'cancel',
+        handler: () => this.openSettings()
+      }]
+    }).present();
+  }
+
+  alertIos(){
+    this.alert.create({
+      enableBackdropDismiss: false,
+      subTitle: 'El Bluetooth está desactivado, debes activarlo para poder continuar.',
+      buttons: [{
+        text: 'Validar',
+        role: 'cancel',
+        handler: () => this.checkBluetoothEnabled()
+      }]
+    }).present();
+  }
+
+  openSettings(){
+    this.openNativeSettings.open("bluetooth");
+  }
+
+
+
+  monitoInit(){
     this.backgroundMode.enable();
     let cont = 0;
     this.monitor.search().subscribe(nearby_beacons => {
@@ -76,13 +129,6 @@ export class HomePage {
     });
   }
 
-  /*ionViewWillLoad() {
-    if(this.backgroundMode.isActive()){
-      this.backgroundMode.disable();
-      this.stalker.unWatch();
-    }
-  }*/
-
   ionViewWillLeave() {
     this.monitor.stop();
   }
@@ -108,7 +154,6 @@ export class HomePage {
       text: 'Nuevo dispositivo encontrado',
       data: beacon,
       color: '#b3259d',
-      icon: '../assets/imgs/logo.png'
     };
 
     this.localNotifications.schedule(options);
