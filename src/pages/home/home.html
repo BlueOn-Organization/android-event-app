@@ -1,14 +1,19 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+<ion-header no-border>
+  <ion-navbar transparent>
+    <ion-title color="light">Blue-On Beacons</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding fullscreen>
+  <ion-card *ngFor="let device of new_beacons">
+    <ion-item color="secondary" class="data" (click)="openLink(device)">
+      <div item-content>
+        <p>ID: <span class="censored">b9407f30-f5f8-466e-aff9-{{device.major}}{{device.minor}}</span></p>
+        <p>major: {{device.major}} - minor: {{device.minor}}</p>
+      </div>
+    </ion-item>
+  </ion-card>
+
+
+  <a class="btn_link" (click)="link()"></a>
 </ion-content>

@@ -13,4 +13,22 @@
 //
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
+// automatically applied to the <body> element in the ap
+// .
+
+html , body, .back-transparent, ion-app, .nav-decor {
+  background: none transparent !important;
+}
+
+$header-color: #990066;
+
+ion-header{
+  .toolbar-title {
+    color: white;
+  }
+
+  .back-button {
+    color: white;
+  }
+}
+
