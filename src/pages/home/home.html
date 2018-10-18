@@ -8,8 +8,8 @@
   <ion-card *ngFor="let device of new_beacons">
     <ion-item color="secondary" class="data" (click)="openLink(device)">
       <div item-content>
-        <p>ID: <span class="censored">b9407f30-f5f8-466e-aff9-{{device.major}}{{device.minor}}</span></p>
-        <p>major: {{device.major}} - minor: {{device.minor}}</p>
+        <p>{{device.nombre}}</p>
+        <p>{{device.id}}</p>
       </div>
     </ion-item>
   </ion-card>

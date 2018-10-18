@@ -26,7 +26,6 @@ export class HomePage {
     private afs: AngularFirestore,
     private monitor: BeaconMonitorProvider,
     private ngzone: NgZone,
-    private alertCtrl: AlertController,
     private iab: InAppBrowser,
     private backgroundMode: BackgroundMode,
     private ibeacon: IBeacon,
@@ -50,8 +49,18 @@ export class HomePage {
         this.beaconsBD.push(beacon);
         //console.log(beacon)
       })
-    })
+    });
+
+    this.platform.ready().then(info =>{
+      this.localNotifications.on('click').subscribe((info)=>{
+        //console.log(info.data.url);
+        const browser = this.iab.create(info.data.url);
+        browser.show();
+      })
+    });
   }
+
+  notif(){}
 
   ionViewWillLoad() {
     this.checkBluetoothEnabled();
@@ -112,14 +121,20 @@ export class HomePage {
           cont = 0;
         }
 
-        nearby_beacons.forEach((beacon,index) => {
+        nearby_beacons.forEach(beacon => {
           if (this.beaconsBD.findIndex(b => b.cid === beacon.cid) != -1 && this.new_beacons.findIndex(b => b.cid === beacon.cid) == -1) {
-            this.new_beacons.push(beacon);
+
+            this.beaconsBD.forEach(b =>{
+              if(b.cid === beacon.cid){
+                this.new_beacons.push(b);
+              }
+            });
+
             if(this.beaconNotifi.findIndex(b => b.cid === beacon.cid) == -1 ){
               this.beaconNotifi.push(beacon);
               this.beaconsBD.forEach(b =>{
                 if(b.cid === beacon.cid){
-                  this.showNotification(b, index + 1);
+                  this.showNotification(b, beacon.minor);
                 }
               });
             }
@@ -151,7 +166,7 @@ export class HomePage {
     const options = {
       id: index,
       title: `${beacon.nombre}`,
-      text: 'Nuevo dispositivo encontrado',
+      text: `${beacon.id}`,
       data: beacon,
       color: '#b3259d',
     };
