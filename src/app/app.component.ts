@@ -49,10 +49,9 @@ export class MyApp {
       if (result) {
         this.rootPage = HomePage;
       } else {
-        this.rootPage = HomePage;
-        //this.rootPage = 'LoginPage';
+        //this.rootPage = HomePage;
+        this.rootPage = 'LoginPage';
       }
     });
   }
 }
-

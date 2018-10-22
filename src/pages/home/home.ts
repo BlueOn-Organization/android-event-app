@@ -1,5 +1,5 @@
 import { Component, NgZone} from '@angular/core';
-import {AlertController, Platform} from 'ionic-angular';
+import {AlertController, Platform,NavController} from 'ionic-angular';
 import {Beacon} from "../../app/beacon.model";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {url} from "../../app/uuid.config";
@@ -10,6 +10,8 @@ import {BackgroundMode} from "@ionic-native/background-mode";
 import {LocalNotifications} from "@ionic-native/local-notifications";
 import { IBeacon } from '@ionic-native/ibeacon';
 import {OpenNativeSettings} from "@ionic-native/open-native-settings";
+import {AngularFireAuth} from "angularfire2/auth";
+import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-home',
@@ -29,10 +31,13 @@ export class HomePage {
     private iab: InAppBrowser,
     private backgroundMode: BackgroundMode,
     private ibeacon: IBeacon,
+    private afAuth: AngularFireAuth,
     private openNativeSettings: OpenNativeSettings,
     private alert: AlertController,
     public platform: Platform,
     private localNotifications: LocalNotifications,
+    public navCtrl: NavController,
+    public storage: Storage,
   ) {
     if(platform.is('android')){
       backgroundMode.setDefaults({
@@ -144,9 +149,7 @@ export class HomePage {
     });
   }
 
-  ionViewWillLeave() {
-    this.monitor.stop();
-  }
+
 
   openLink(beacon: Beacon){
     this.beaconsBD.forEach(b =>{
@@ -172,5 +175,16 @@ export class HomePage {
     };
 
     this.localNotifications.schedule(options);
+  }
+
+  logout(){
+    this.afAuth.auth.signOut().then(x=>{
+      this.storage.set('introShown', false);
+      this.navCtrl.setRoot('LoginPage');
+    });
+  }
+
+  ionViewWillLeave() {
+    this.monitor.stop();
   }
 }
