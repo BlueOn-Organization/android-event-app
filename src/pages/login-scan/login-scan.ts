@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-import {HomePage} from "../home/home";
+import {HomePageScan} from "../home/home";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {url} from "../../app/uuid.config";
 
@@ -76,7 +76,7 @@ export class LoginPage {
         return firebase.auth().signInWithCredential(facebookCredential)
           .then(result =>{
             this.storage.set('introShown', true);
-            this.navCtrl.setRoot(HomePage, {}, {
+            this.navCtrl.setRoot(HomePageScan, {}, {
               animate: true,
               direction: 'forward'
             });
@@ -114,7 +114,7 @@ export class LoginPage {
         return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
           .then(result =>{
             this.storage.set('introShown', true);
-            this.navCtrl.setRoot(HomePage, {}, {
+            this.navCtrl.setRoot(HomePageScan, {}, {
               animate: true,
               direction: 'forward'
             });

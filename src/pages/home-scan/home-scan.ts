@@ -3,7 +3,7 @@ import {AlertController, Platform,NavController} from 'ionic-angular';
 import {Beacon} from "../../app/beacon.model";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {url} from "../../app/uuid.config";
-import {BeaconMonitorProvider} from "../../providers/beacon-monitor/beacon-monitor";
+import {ScanMonitorProvider} from "../../providers/scan-monitor/scan-monitor";
 import { AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 import {Observable} from "rxjs";
 import {BackgroundMode} from "@ionic-native/background-mode";
@@ -17,7 +17,7 @@ import {Storage} from "@ionic/storage";
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePageScan {
   new_beacons: Beacon[] = [];
   beaconsBD: Beacon[] = [];
   beaconNotifi: Beacon[] = [];
@@ -26,7 +26,7 @@ export class HomePage {
 
   constructor(
     private afs: AngularFirestore,
-    private monitor: BeaconMonitorProvider,
+    private monitor: ScanMonitorProvider,
     private ngzone: NgZone,
     private iab: InAppBrowser,
     private backgroundMode: BackgroundMode,
@@ -65,7 +65,6 @@ export class HomePage {
     });
   }
 
-  notif(){}
 
   ionViewWillLoad() {
     this.checkBluetoothEnabled();
@@ -180,7 +179,7 @@ export class HomePage {
   logout(){
     this.afAuth.auth.signOut().then(x=>{
       this.storage.set('introShown', false);
-      this.navCtrl.setRoot('LoginPage');
+      this.navCtrl.setRoot('LoginPageScan');
     });
   }
 
