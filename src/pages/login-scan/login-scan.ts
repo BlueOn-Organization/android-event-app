@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 import { Platform } from 'ionic-angular';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
-import {HomePageScan} from "../home/home";
+import {HomePageScan} from "../home-scan/home-scan";
 import {InAppBrowser} from "@ionic-native/in-app-browser";
 import {url} from "../../app/uuid.config";
 
@@ -15,7 +15,7 @@ export interface User {
   password: string;
 }
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the LoginPageScan page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -24,12 +24,12 @@ export interface User {
 @IonicPage()
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
+  templateUrl: 'login-scan.html',
 })
-export class LoginPage {
+export class LoginPageScan {
 
-  user = {} as User
-  acept:boolean = false
+  user = {} as User;
+  acept:boolean = false;
 
   constructor(
     public navCtrl: NavController,

@@ -3,7 +3,7 @@ import { Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { HomePage } from '../pages/home/home';
+import { HomePageScan } from '../pages/home-scan/home-scan';
 import { BackgroundMode } from '@ionic-native/background-mode';
 
 
@@ -47,10 +47,10 @@ export class MyApp {
     storage.get('introShown').then(result => {
       console.log('introShown' + result);
       if (result) {
-        this.rootPage = HomePage;
+        this.rootPage = HomePageScan;
       } else {
-        //this.rootPage = HomePage;
-        this.rootPage = 'LoginPage';
+        //this.rootPage = HomePageScan;
+        this.rootPage = 'LoginPageScan';
       }
     });
   }

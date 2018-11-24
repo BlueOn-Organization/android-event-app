@@ -6,7 +6,7 @@ import { Beacon } from '../../app/beacon.model';
 import {uuid} from "../../app/uuid.config";
 
 @Injectable()
-export class BeaconMonitorProvider {
+export class ScanMonitorProvider {
   private beaconRegion: BeaconRegion;
 
   constructor(

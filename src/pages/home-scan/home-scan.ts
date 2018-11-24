@@ -15,7 +15,7 @@ import {Storage} from "@ionic/storage";
 
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home-scan.html'
 })
 export class HomePageScan {
   new_beacons: Beacon[] = [];
@@ -52,8 +52,9 @@ export class HomePageScan {
       this.beaconsBD = [];
       info.forEach(beacon => {
         this.beaconsBD.push(beacon);
-        //console.log(beacon)
       })
+      this.monitoInit();
+      console.log('Beacons:',this.beaconsBD.length)
     });
 
     this.platform.ready().then(info =>{

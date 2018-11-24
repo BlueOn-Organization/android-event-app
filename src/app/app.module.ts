@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { HomePageScan } from '../pages/home-scan/home-scan';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -19,7 +19,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import {OpenNativeSettings} from "@ionic-native/open-native-settings";
-import { BeaconMonitorProvider } from '../providers/beacon-monitor/beacon-monitor';
+import { ScanMonitorProvider } from '../providers/scan-monitor/scan-monitor';
 
 
 
@@ -35,7 +35,7 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePageScan
   ],
   imports: [
     BrowserModule,
@@ -48,12 +48,12 @@ const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePageScan
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    BeaconMonitorProvider,
+    ScanMonitorProvider,
     IBeacon,
     LocalNotifications,
     InAppBrowser,
